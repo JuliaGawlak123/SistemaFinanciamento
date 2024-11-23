@@ -60,7 +60,7 @@ public class InterfaceUsuario {
             try {
                 taxa = scanner.nextDouble();
 
-                if (taxa > 0 && taxa < 1000) {
+                if (taxa > 0 && taxa < 100) {
                     entradaValida = true;
                 } else {
                     System.out.println("Erro: O valor deve ser maior que zero e menor que 100. Tente novamente.");

@@ -43,17 +43,34 @@ public class Main {
                     Financiamento novoFinanciamento = null;
 
                     if(tipo ==1){
-                        novoFinanciamento = new Casa(valorImovel,prazoFinanciamentoEmAnos,taxaJuros);
+                        System.out.println("Digite a área construída (em m2): ");
+                        double areaConstruida = scanner.nextDouble();
+
+                        System.out.println("Digite a área do terreno em m2: ");
+                        double areaTerreno = scanner.nextDouble();
+
+                        novoFinanciamento = new Casa(valorImovel,prazoFinanciamentoEmAnos,taxaJuros, areaConstruida, areaTerreno);
                     }
                     else if(tipo == 2){
-                        novoFinanciamento = new Apartamento(valorImovel,prazoFinanciamentoEmAnos,taxaJuros);
-                    }else if(tipo == 3){
-                        novoFinanciamento = new Terreno(valorImovel,prazoFinanciamentoEmAnos,taxaJuros);
-                    } else{
+                        System.out.print("Digite o número de vagas na garagem: ");
+                        int vagasGaragem = scanner.nextInt();
+
+                        System.out.print("Digite o número do andar: ");
+                        int numerodeAndares = scanner.nextInt();
+
+                        novoFinanciamento = new Apartamento(valorImovel, prazoFinanciamentoEmAnos, taxaJuros, vagasGaragem, numerodeAndares);
+                    }
+                    else if(tipo == 3){
+                        System.out.print("Digite o tipo de zona (residencial/comercial): ");
+                        String tipoZona = scanner.next();
+                        novoFinanciamento = new Terreno(valorImovel, prazoFinanciamentoEmAnos, taxaJuros,tipoZona);
+                    } else {
                         System.out.println("Opção de Financiamento Inválida");
                     }
-                    listaFinanciamento.add(novoFinanciamento);
-                    novoFinanciamento.exibirDetalhesFinanciamento();
+                    if (novoFinanciamento != null) {
+                        listaFinanciamento.add(novoFinanciamento);
+                        novoFinanciamento.exibirDetalhesFinanciamento();
+                    }
                     break;
 
                 case 02:// Financiamento já realizado
