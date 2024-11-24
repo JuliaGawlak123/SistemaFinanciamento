@@ -19,7 +19,7 @@ public class InterfaceUsuario {
                 } else {
                     System.out.println("Erro: O valor deve ser maior que zero. Tente novamente.");
                 }
-            } catch (java.util.InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Erro: Insira um número válido.");
                 scanner.next();
             }
@@ -36,13 +36,13 @@ public class InterfaceUsuario {
             try {
                 prazo = scanner.nextInt();
 
-                if (prazo > 0 && prazo <= 1000) {
+                if (prazo > 0 && prazo <= 100) {
                     entradaValida = true;
                 } else {
                     System.out.println("Erro: O valor deve ser maior que zero e menor que 100. Tente novamente.");
 
                 }
-            } catch (java.util.InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Erro: Insira um número válido");
                 scanner.next();
             }
@@ -66,7 +66,7 @@ public class InterfaceUsuario {
                     System.out.println("Erro: O valor deve ser maior que zero e menor que 100. Tente novamente.");
 
                 }
-            } catch (java.util.InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Erro: Insira um número válido");
                 scanner.next();
             }
@@ -75,7 +75,116 @@ public class InterfaceUsuario {
         return taxa;
     }
 
+    public int pedirNumeroAndares() {
+        int numeroAndares = 0;
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            System.out.println("Digite o número do andar: ");
+            try {
+                numeroAndares = scanner.nextInt();
+                if (numeroAndares > 0 && numeroAndares < 170) {
+                    entradaValida = true;
+                } else {
+                    System.out.println("O numero do andar deve ser maior que zero e menor que 170");
+                }
+            } catch (Exception e) {
+                System.out.println("Insira um número Válido");
+                scanner.next();
+            }
+        }
+        return numeroAndares;
+    }
+
+    public int pedirNumeroVagasGaragem() {
+        int vagasGaragem = 0;
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            System.out.println("Digite o número do andar");
+        }
+        try {
+            vagasGaragem = scanner.nextInt();
+            if (vagasGaragem > 0 && vagasGaragem < 1000) {
+                entradaValida = true;
+            } else {
+                System.out.println("A vaga da garagem deve ser maior que zero e menor que 1000");
+            }
+        } catch (Exception e) {
+            System.out.println("Insira um número Válido");
+            scanner.next();
+        }
+        return vagasGaragem;
+    }
+
+    public String pedirTipoZona() {
+        String tipoZona = "";
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            System.out.println("Digite o tipo de zona (residencial/comercial): ");
+            try {
+                tipoZona = scanner.next();
+                if (tipoZona.equalsIgnoreCase("residencial") || tipoZona.equalsIgnoreCase("comercial")) {
+                    entradaValida = true;
+                } else {
+                    System.out.println("Insira 'residencial' ou 'comercial'. Tente novamente.");
+                }
+            } catch (Exception e) {
+                System.out.println("Insira um valor válido.");
+                scanner.next();
+            }
+        }
+        return tipoZona;
+    }
+
+
+    public double pedirAreaConstruida() {
+        double areaConstruida = 0;
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            System.out.println("Digite o número da Área Construída: ");
+            try {
+                areaConstruida = scanner.nextDouble();
+                if (areaConstruida > 0) {
+                    entradaValida = true;
+                } else {
+                    System.out.println("Erro: A área construída deve ser maior que zero.");
+                }
+            } catch (Exception e) {
+                System.out.println("Erro: Insira um número válido.");
+                scanner.next();
+            }
+        }
+        return areaConstruida;
+    }
+
+    public double pedirAreaTerreno() {
+        double areaTerreno = 0;
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            System.out.println("Digite o número da Área do Terreno: ");
+            try {
+                areaTerreno = scanner.nextDouble();
+                if (areaTerreno > 0) {
+                    entradaValida = true;
+                } else {
+                    System.out.println("Erro: A área do terreno deve ser maior que zero.");
+                }
+            } catch (Exception e) {
+                System.out.println("Erro: Insira um número válido.");
+                scanner.next();
+            }
+        }
+        return areaTerreno;
+    }
+
+
 
 
 
 }
+
+

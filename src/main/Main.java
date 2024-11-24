@@ -4,6 +4,8 @@ import modelo.Financiamento;
 import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Terreno;
+import util.AreaConstruidaMaiorQueTerrenoException;
+import util.DescontoMaiorDoQueJurosException;
 import util.InterfaceUsuario;
 
 import java.util.ArrayList;
@@ -42,27 +44,40 @@ public class Main {
 
                     Financiamento novoFinanciamento = null;
 
-                    if(tipo ==1){
-                        System.out.println("Digite a área construída (em m2): ");
-                        double areaConstruida = scanner.nextDouble();
+                    if (tipo == 1) {
+                        double areaConstruida = interfaceUsuario.pedirAreaConstruida();
+                        double areaTerreno = interfaceUsuario.pedirAreaTerreno();
 
-                        System.out.println("Digite a área do terreno em m2: ");
-                        double areaTerreno = scanner.nextDouble();
+                        try {
+                            System.out.print("Digite o valor do desconto: ");
+                            double desconto = scanner.nextDouble();
 
-                        novoFinanciamento = new Casa(valorImovel,prazoFinanciamentoEmAnos,taxaJuros, areaConstruida, areaTerreno);
+                            Casa casa = new Casa(valorImovel, prazoFinanciamentoEmAnos, taxaJuros, areaConstruida, areaTerreno);
+                            casa.setDesconto(desconto);
+
+                            // Validação do desconto com try-catch
+                            try {
+                                casa.validarDesconto();
+                                novoFinanciamento = casa; // Só adiciona se o desconto for válido
+                            } catch (DescontoMaiorDoQueJurosException e) {
+                                System.out.println(e.getMessage()); // Mensagem de erro
+                                break; // Sai do bloco e não continua com o financiamento
+                            }
+                        } catch (AreaConstruidaMaiorQueTerrenoException e) {
+                            System.out.println("Erro ao criar financiamento: " + e.getMessage());
+                        }
                     }
+
                     else if(tipo == 2){
-                        System.out.print("Digite o número de vagas na garagem: ");
-                        int vagasGaragem = scanner.nextInt();
+                        int vagasGaragem = interfaceUsuario.pedirNumeroVagasGaragem();
+                        int numeroAndares = interfaceUsuario.pedirNumeroAndares();
 
-                        System.out.print("Digite o número do andar: ");
-                        int numerodeAndares = scanner.nextInt();
+                        novoFinanciamento = new Apartamento(valorImovel, prazoFinanciamentoEmAnos, taxaJuros, vagasGaragem, numeroAndares);
 
-                        novoFinanciamento = new Apartamento(valorImovel, prazoFinanciamentoEmAnos, taxaJuros, vagasGaragem, numerodeAndares);
                     }
                     else if(tipo == 3){
-                        System.out.print("Digite o tipo de zona (residencial/comercial): ");
-                        String tipoZona = scanner.next();
+                        String tipoZona = interfaceUsuario.pedirTipoZona();
+
                         novoFinanciamento = new Terreno(valorImovel, prazoFinanciamentoEmAnos, taxaJuros,tipoZona);
                     } else {
                         System.out.println("Opção de Financiamento Inválida");
